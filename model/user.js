@@ -3,15 +3,15 @@ var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 
 let Schema = mongoose.Schema;
 
-let AssignmentSchema = Schema({
+let UserSchema = Schema({
     id: Number,
-    dateDeRendu: Date,
-    nom: String,
-    rendu: Boolean
+    Nom: String,
+    Identifiant: String,
+    Password: String
 });
 
-AssignmentSchema.plugin(aggregatePaginate);
+UserSchema.plugin(aggregatePaginate);
 
 
 // C'est à travers ce modèle Mongoose qu'on pourra faire le CRUD
-module.exports = mongoose.model('Assignment', AssignmentSchema);
+module.exports = mongoose.model('User', UserSchema);

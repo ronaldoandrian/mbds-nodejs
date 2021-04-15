@@ -3,6 +3,7 @@ let app = express();
 let bodyParser = require('body-parser');
 
 let assignment = require('./routes/assignments');
+let user = require('./routes/users');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -60,10 +61,14 @@ app.route(prefix + '/generate')
   .get(assignment.generateData);
 */
 
+//User
+//Login
+
+app.route(prefix + '/user/login')
+.post(user.loginUser);
+
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
 console.log('Serveur démarré  sur http://localhost:' + port);
 
 module.exports = app;
-
-
