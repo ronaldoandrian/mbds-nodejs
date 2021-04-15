@@ -4,6 +4,7 @@ let bodyParser = require('body-parser');
 
 let assignment = require('./routes/assignments');
 let user = require('./routes/users');
+let matiere = require('./routes/matieres');
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
@@ -30,12 +31,17 @@ mongoose.connect(uri, options)
     });
 
 // Pour accepter les connexions cross-domain (CORS)
-app.use((req, res, next) =>  {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
+try {
+  app.use((req, res, next) =>  {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    next();
+  });
+}
+catch(err) {
+  
+}
 
 // Pour les formulaires
 app.use(bodyParser.urlencoded({extended: true}));
@@ -56,16 +62,23 @@ app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
   .delete(assignment.deleteAssignment);
   
-/*
+
 app.route(prefix + '/generate')
   .get(assignment.generateData);
-*/
+
 
 //User
 //Login
 
 app.route(prefix + '/user/login')
 .post(user.loginUser);
+
+app.route(prefix + '/user/generate')
+.get(user.generateData);
+
+//Matiere
+app.route(prefix + '/matieres/generate')
+.get(matiere.saveMatiere);
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

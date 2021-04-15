@@ -15,6 +15,19 @@ function loginUser(request, response) {
       });
 }
 
+function generateData() {
+    for(let i = 3; i <= 150; i++) {
+        let utilisateur = new user();
+        utilisateur.id = i;
+        utilisateur.Nom = "Etudiant numéro " + i;
+        utilisateur.Identifiant = "etudiant" + i;
+        utilisateur.Password = "password" + i;
+
+        utilisateur.save();
+    }
+}
+
 module.exports = {
-    loginUser
+    loginUser,
+    generateData
 };
